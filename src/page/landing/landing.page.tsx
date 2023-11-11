@@ -5,6 +5,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { StepCard } from "../../component/step-card/step.card.tsx";
+import { Link } from "react-router-dom";
+import { MenuLink } from "../../component/menu-link/menu.link.tsx";
 
 export const LandingPage = () => {
 
@@ -97,20 +99,25 @@ export const LandingPage = () => {
           Simple Steps to a Sustainable Future
         </Typography>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem' }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem' }}>
           <StepCard
-            iconUrl="/public/icon-qr.png"
-            description="Manufacturers register every produced device in our system and describe the CRMs used. Each device receives a unique QR code."
+            iconUrl="/public/icon-register.png"
+            description="Manufacturers register every produced device in our system and describe the CRMs used."
           />
 
           <StepCard
             iconUrl="/public/icon-qr.png"
+            description="Each device receives a unique QR code with the information about the CRMs used."
+          />
+
+          <StepCard
+            iconUrl="/public/icon-coins.png"
             description="Customers pay the price of the device plus a deposit."
           />
 
           <StepCard
             iconUrl="/public/icon-recycling.png"
-            description="Customers can check the value of deposit and return/send the device to a recycling facility"
+            description="Customers can check the value of deposit and return/send the device to a recycling facility."
           />
         </Box>
       </Box>
@@ -166,6 +173,85 @@ export const LandingPage = () => {
 
       </Box>
 
+      <Box height={'10rem'}/>
+
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: '1.5fr 1fr',
+        gap: '1rem',
+        backgroundColor: '#D3FBD8',
+        padding: '1rem 1rem 0 3rem',
+        borderRadius: '1rem',
+      }}>
+        <CardMedia
+          loading="lazy"
+          component="img"
+          sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'center',
+            borderRadius: '1rem',
+            alignSelf: 'flex-end',
+          }}
+          image="/public/image-17.png"
+          />
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingTop: '1rem', paddingRight: '2rem', textAlign: 'right' }}>
+          <Typography color={"primary"} fontSize={'2rem'} fontWeight={500}>
+            Join the movement toward a sustainable future.
+          </Typography>
+          <Typography color={"#000000DE"} fontSize={'1.5rem'} fontWeight={300} lineHeight={'2rem'}>
+            Register your devices and let the world know you care about nature.
+          </Typography>
+          <Box>
+            <Button size={'large'} variant="contained" color="primary">
+              Get Started
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+
+      <Box height={'10rem'}/>
+
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+        <CardMedia
+          loading="lazy"
+          component="img"
+          sx={{width: '100px', objectFit: 'contain', objectPosition: 'center'}}
+          image="/public/logo.png"
+        />
+
+        <Box sx={{display: 'flex', gap: '1.5rem', padding: '1.5rem 0'}}>
+          <MenuLink url={'/'} title={'Home.'} />
+          <MenuLink url={'/'} title={'About Us.'} />
+          <MenuLink url={'/'} title={'How it works.'} />
+          <MenuLink url={'/'} title={'Manufacturers.'} />
+          <MenuLink url={'/'} title={'Recycling Centers.'} />
+        </Box>
+      </Box>
+
+      <Box sx={{borderBottom: '1px solid #2838410D'}}></Box>
+
+      <Box sx={{display: 'flex', gap: '1.5rem', padding: '1.5rem 0', justifyContent: 'space-between', alignItems: 'center'}}>
+        <Typography color={"primary"} fontSize={'1rem'} fontWeight={300}>
+          © 2023 Re* - All Rights Reserved.
+        </Typography>
+
+        <Box sx={{display: 'flex', gap: '1.5rem', padding: '1.5rem 0', alignItems: 'center'}}>
+          <Link to={'/'} style={{textDecoration: 'none'}}>
+            <Typography color={"primary"} fontSize={'1rem'} fontWeight={300}>
+              Terms & Conditions
+            </Typography>
+          </Link>
+          <Link to={'/'} style={{textDecoration: 'none'}}>
+            <Typography color={"primary"} fontSize={'1rem'} fontWeight={300}>
+              Privacy Policy
+            </Typography>
+          </Link>
+        </Box>
+      </Box>
 
     </Container>
   )

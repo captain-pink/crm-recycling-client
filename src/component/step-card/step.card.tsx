@@ -27,9 +27,9 @@ export const StepCard: FC<StepCardProps> = (props) => {
       <Typography
         color={"#000000DE"}
         variant="body1"
-        fontSize="12px"
+        fontSize="1rem"
         fontWeight={400}
-        sx={{ textTransform: "uppercase", textAlign: 'center', textWrap: 'balance' }}
+        sx={{ textAlign: 'center', textWrap: 'balance' }}
       >
         {props.description}
       </Typography>
