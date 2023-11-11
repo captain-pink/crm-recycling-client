@@ -6,11 +6,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { DeviceCard, Summary } from "../../component";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Modal } from "@mui/material";
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
+import { AddDeviceDialogComponent } from "../../component/add-device-dialog/add-device-dialog.component";
 
 const QUERY_STATS = gql`
 query ManufacturerStats {
@@ -119,11 +119,7 @@ export function Dashboard() {
           />
         </Grid>
       </Grid>
-      <Modal open={addDeviceModalOpened} onClose={() => setAddDeviceModalOpened(false)}>
-        <Box sx={{ borderRadius: '1rem', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '50%', height: '50%', backgroundColor: 'white' }}>
-
-        </Box>
-      </Modal>
+      <AddDeviceDialogComponent open={addDeviceModalOpened} onClose={() => setAddDeviceModalOpened(false)}/>
       <Backdrop
         open={loading}
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}
