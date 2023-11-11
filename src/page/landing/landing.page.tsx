@@ -25,11 +25,11 @@ export const LandingPage = () => {
           />
 
           <Box sx={{ display: 'flex', gap: '1.5rem', padding: '1.5rem 0' }}>
-            <MenuLink url={'/'} title={'Home.'}/>
-            <MenuLink url={'/'} title={'About Us.'}/>
-            <MenuLink url={'/'} title={'How it works.'}/>
-            <MenuLink url={'/'} title={'Manufacturers.'}/>
-            <MenuLink url={'/'} title={'Recycling Centers.'}/>
+            <MenuLink url={'/'} title={'Home'}/>
+            <MenuLink url={'/'} title={'About Us'}/>
+            <MenuLink url={'/'} title={'How it works'}/>
+            <MenuLink url={'/'} title={'Manufacturers'}/>
+            <MenuLink url={'/'} title={'Recycling Centers'}/>
           </Box>
 
           <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -71,7 +71,7 @@ export const LandingPage = () => {
                 </Typography>
 
                 <Typography color={"#000000DE"} fontSize={'2.125rem'} fontWeight={700}>
-                  112 275 g
+                  112 275
                 </Typography>
               </Box>
               <Box sx={{ width: '1px', height: '3rem', borderRight: '1px solid #28384140' }}></Box>
@@ -80,17 +80,17 @@ export const LandingPage = () => {
                   Raw materials received
                 </Typography>
                 <Typography color={"#000000DE"} fontSize={'2.125rem'} fontWeight={700}>
-                  396 571 g
+                  12943 kg
                 </Typography>
               </Box>
             </Box>
 
             <Box sx={{ display: 'flex', gap: '1rem' }}>
-              <Button size={'large'} variant="contained" color="primary">
+              <Button onClick={() => navigate('/sign-up')} size={'large'} variant="contained" color="primary">
                 Join the revolution
               </Button>
 
-              <Button size={'large'} color="primary">
+              <Button onClick={() => navigate('/sign-up')} size={'large'} color="primary">
                 Get a Demo
               </Button>
             </Box>
@@ -143,7 +143,7 @@ export const LandingPage = () => {
                 display: 'flex',
                 justifyContent: 'center',
               }}>
-                <Button size={'large'} variant="contained" color="primary">
+                <Button onClick={() => navigate('/sign-up')} size={'large'} variant="contained" color="primary">
                   Join now
                 </Button>
               </Box>
@@ -290,7 +290,7 @@ export const LandingPage = () => {
       </Box>
 
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-        <Button size={'large'} variant="contained" color="primary">
+        <Button onClick={() => navigate('/sign-up')} size={'large'} variant="contained" color="primary">
           Explore how it works
         </Button>
       </Box>
@@ -372,7 +372,7 @@ export const LandingPage = () => {
             Register your devices and let the world know you care about nature.
           </Typography>
           <Box>
-            <Button size={'large'} variant="contained" color="primary">
+            <Button onClick={() => navigate('/sign-up')} size={'large'} variant="contained" color="primary">
               Get Started
             </Button>
           </Box>
@@ -392,11 +392,11 @@ export const LandingPage = () => {
         />
 
         <Box sx={{display: 'flex', gap: '1.5rem', padding: '1.5rem 0'}}>
-          <MenuLink url={'/'} title={'Home.'} />
-          <MenuLink url={'/'} title={'About Us.'} />
-          <MenuLink url={'/'} title={'How it works.'} />
-          <MenuLink url={'/'} title={'Manufacturers.'} />
-          <MenuLink url={'/'} title={'Recycling Centers.'} />
+          <MenuLink url={'/'} title={'Home'} />
+          <MenuLink url={'/'} title={'About Us'} />
+          <MenuLink url={'/'} title={'How it works'} />
+          <MenuLink url={'/'} title={'Manufacturers'} />
+          <MenuLink url={'/'} title={'Recycling Centers'} />
         </Box>
       </Box>
 
