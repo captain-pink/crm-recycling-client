@@ -67,7 +67,7 @@ export function LoginPage() {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        image="/public/critical-raw-material-background.png"
+        image="/critical-raw-material-background.png"
         alt="Raw Material Recycling Background Image"
       />
       <Box

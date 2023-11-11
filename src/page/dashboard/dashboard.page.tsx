@@ -48,10 +48,9 @@ export function Dashboard() {
   });
 
   // TODO: To process error and loading cases
-  const [saveDeviceModel, { data }] = useMutation(
-    MUTATION_CREATE_DEVICE_CATEGORY,
-    { refetchQueries: [QUERY_DEVICE_MODELS] }
-  );
+  const [saveDeviceModel] = useMutation(MUTATION_CREATE_DEVICE_CATEGORY, {
+    refetchQueries: [QUERY_DEVICE_MODELS],
+  });
 
   const handleAddDevice = () => {
     setAddDeviceModalOpened(true);

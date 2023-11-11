@@ -1,7 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import { SignUpPage } from "../page";
-import { LoginPage } from "../page/login";
-import { Dashboard } from "../page/dashboard";
 
 export const APP_ROUTER = createBrowserRouter([
   {
