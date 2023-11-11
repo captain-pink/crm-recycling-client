@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { StepCard } from "../../component/step-card/step.card.tsx";
 
 export const LandingPage = () => {
 
@@ -72,6 +73,100 @@ export const LandingPage = () => {
           />
         </Grid>
       </Grid>
+
+      <Box height={'10rem'}/>
+
+      <Typography color={'primary'} variant="h1" fontWeight={600} fontSize={'3rem'} textAlign={'center'}>
+        Be Earth Advocates
+      </Typography>
+
+      <Typography color={"#000000DE"} fontSize={'1.5rem'} fontWeight={300} lineHeight={'2rem'} textAlign={'center'}>
+        Demonstrate your commitment to the environment.
+      </Typography>
+
+
+      <Box height={'10rem'}/>
+
+      <Box
+        sx={{ backgroundImage: 'url("/public/image-18.png")', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <Typography color={'primary'} variant="h1" fontWeight={600} fontSize={'3rem'} textAlign={'center'}>
+          How It Works
+        </Typography>
+
+        <Typography color={"#000000DE"} fontSize={'1.5rem'} fontWeight={300} lineHeight={'2rem'} textAlign={'center'}>
+          Simple Steps to a Sustainable Future
+        </Typography>
+
+        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem' }}>
+          <StepCard
+            iconUrl="/public/icon-qr.png"
+            description="Manufacturers register every produced device in our system and describe the CRMs used. Each device receives a unique QR code."
+          />
+
+          <StepCard
+            iconUrl="/public/icon-qr.png"
+            description="Customers pay the price of the device plus a deposit."
+          />
+
+          <StepCard
+            iconUrl="/public/icon-recycling.png"
+            description="Customers can check the value of deposit and return/send the device to a recycling facility"
+          />
+        </Box>
+      </Box>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
+        <Button size={'large'} variant="contained" color="primary">
+          Explore how it works
+        </Button>
+      </Box>
+
+      <Box height={'10rem'}/>
+
+      <Box sx={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '1rem' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <Typography color={'primary'} variant="h1" fontWeight={600} fontSize={'3rem'}>
+            Why Register Your<br/> <span style={{
+            paddingRight: '15px',
+            background: 'linear-gradient(to bottom, transparent 40%, #D1F8D6 40%)'
+          }}>Devices</span>?
+          </Typography>
+
+          <Typography color={"#000000DE"} fontSize={'1.5rem'} fontWeight={300} lineHeight={'2rem'}>
+            Showcase your commitment to sustainability, boost brand image, and contribute to a greener planet. Plus, gain exposure to environmentally-conscious consumers.
+          </Typography>
+        </Box>
+
+        <Box sx={{position: 'relative', backgroundColor: '#C9F7FF', borderRadius: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'stretch'}}>
+          <Box sx={{
+            overflow: 'hidden',
+            position: 'absolute',
+            width: '50%',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            borderBottomRightRadius: '1rem',
+            borderTopRightRadius: '1rem'
+          }}>
+            <CardMedia
+              loading="lazy"
+              component="img"
+              sx={{ padding: 0, width: '100%', objectFit: 'cover', objectPosition: 'center', height: '100%' }}
+              image="/public/image-9.png"
+            />
+          </Box>
+
+          <CardMedia
+            loading="lazy"
+            component="img"
+            sx={{ zIndex: 10, padding: 0, width: '70%', objectFit: 'cover', objectPosition: 'center', margin: '-10%' }}
+            image="/public/earth.png"
+          />
+        </Box>
+
+      </Box>
+
+
     </Container>
   )
 }
