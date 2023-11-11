@@ -9,13 +9,13 @@ export const LandingPage = () => {
 
   return (
     <Container sx={{ marginTop: '4rem' }}>
-      <Grid container spacing={1.5}>
-        <Grid item lg={6} xl={6} sx={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      <Grid container justifyContent={'space-between'}>
+        <Grid item lg={5.8} xl={5.8} sx={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
           <CardMedia
             loading="lazy"
             component="img"
             sx={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center', borderRadius: '1rem' }}
-            image="/public/critical-raw-material-background.png"
+            image="/public/image-9.png"
           />
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Typography color={'primary'} variant="h1" fontWeight={600} fontSize={'4rem'}>
@@ -62,13 +62,13 @@ export const LandingPage = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item lg={6} xl={6}>
+        <Grid item lg={5.8} xl={5.8} overflow={'hidden'} sx={{ borderRadius: '1rem', padding: 0 }}>
           <CardMedia
             height={'650px'}
             loading="lazy"
             component="img"
-            sx={{ objectFit: 'cover', objectPosition: 'center', borderRadius: '1rem' }}
-            image="/public/critical-raw-material-background.png"
+            sx={{ objectFit: 'cover', objectPosition: 'center' }}
+            image="/public/frame-28.png"
           />
         </Grid>
       </Grid>
