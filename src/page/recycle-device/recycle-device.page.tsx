@@ -8,6 +8,7 @@ import { MenuLink } from "../../component/menu-link/menu.link.tsx";
 import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import MailIcon from '@mui/icons-material/Mail';
 
 export const RecycleDevicePage: FC = () => {
   const navigate = useNavigate();
@@ -56,15 +57,88 @@ export const RecycleDevicePage: FC = () => {
         <Box sx={{ height: '2.5rem' }}/>
 
         <Grid container spacing={'1rem'}>
-          <Grid item xs={4} lg={4}>
+          <Grid item xs={4} lg={4} sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Card elevation={0} sx={{
               backgroundColor: '#EEF7F6',
               borderRadius: '1rem',
               border: '1px solid #2838410D',
-              padding: '1rem'
+              padding: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem'
             }}>
-              Some content here
+              <Box>
+                <Typography
+                  color={"#000000DE"}
+                  variant="body1"
+                  fontSize="0.75rem"
+                  fontWeight={400}
+                  sx={{ textTransform: "uppercase" }}
+                >
+                  Device
+                </Typography>
+                <Typography color={'primary'} variant="h1" fontWeight={500} fontSize={'1.25rem'}>
+                  iPhone 15Pro
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography
+                  color={"#000000DE"}
+                  variant="body1"
+                  fontSize="0.75rem"
+                  fontWeight={400}
+                  sx={{ textTransform: "uppercase" }}
+                >
+                  Type
+                </Typography>
+                <Typography color={'primary'} variant="h6" fontWeight={400} fontSize={'1rem'}>
+                  iPhone 15Pro
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography
+                  color={"#000000DE"}
+                  variant="body1"
+                  fontSize="0.75rem"
+                  fontWeight={400}
+                  sx={{ textTransform: "uppercase" }}
+                >
+                  Raw materials
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                  <Typography
+                    color={"primary"}
+                    variant="body1"
+                    fontSize="0.875rem"
+                    fontWeight={400}
+                  >
+                    Aluminum
+                  </Typography>
+                  <Box sx={{
+                    height: '1.5rem',
+                    flexGrow: 1,
+                    borderBottom: '1px dashed #2838411A',
+                    transform: 'translateY(-0.5rem)'
+                  }}/>
+                  <Typography
+                    color={"primary"}
+                    variant="body1"
+                    fontSize="1rem"
+                    fontWeight={400}
+                  >
+                    10g
+                  </Typography>
+                </Box>
+              </Box>
             </Card>
+
+            <Button sx={{ borderRadius: '.5rem' }} type="submit" color={"primary"} variant="contained"
+                    endIcon={<MailIcon/>}>
+              Print prepaid envelope
+            </Button>
           </Grid>
 
           <Grid item xs={8} lg={8}>
