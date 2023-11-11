@@ -45,22 +45,24 @@ export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (prop
       <Box
         sx={{
           padding: '1.5rem 2.5rem',
+          position: 'relative',
         }}
       >
-
-        <IconButton
-          aria-label="close"
-          onClick={props.onClose}
+        <Box
           sx={{
-            position: 'absolute',
-            right: '0',
-            top: '0',
-            color: (theme) => theme.palette.grey[500],
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
         >
-          <CloseIcon/>
-        </IconButton>
-        <DialogTitle>Add Device</DialogTitle>
+          <DialogTitle>Add Device</DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={props.onClose}
+            sx={{ color: (theme) => theme.palette.grey[500], }}
+          >
+            <CloseIcon/>
+          </IconButton>
+        </Box>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Typography
             color={"#000000DE"}
