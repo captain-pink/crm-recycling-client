@@ -12,16 +12,19 @@ export interface StepCardProps {
 export const StepCard: FC<StepCardProps> = (props) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-      <Card sx={{
-        justifySelf: 'center',
-        backgroundColor: '#D3FBD8',
-        width: '160px',
-        height: '160px',
-        borderRadius: '1rem',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
+      <Card
+        sx={{
+          justifySelf: 'center',
+          backgroundColor: '#D3FBD8',
+          width: '160px',
+          height: '160px',
+          borderRadius: '1rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+        elevation={0}
+      >
         <CardMedia sx={{ height: '60px', width: '60px' }} component="img" image={props.iconUrl}/>
       </Card>
       <Typography
