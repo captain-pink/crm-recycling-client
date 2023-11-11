@@ -2,23 +2,38 @@ import { createBrowserRouter } from "react-router-dom";
 import { SignUpPage } from "../page";
 import { LoginPage } from "../page/login";
 import { Dashboard } from "../page/dashboard";
-import { LandingPage } from "../page/landing";
 
 export const APP_ROUTER = createBrowserRouter([
   {
     path: "/",
-    Component: LandingPage,
+    lazy: async () => {
+      const { LandingPage: Component } = await import("../page/landing");
+
+      return { Component };
+    },
   },
   {
-    path: "/manufacturer-dashboard",
-    Component: Dashboard,
+    path: "/dashboard",
+    lazy: async () => {
+      const { Dashboard: Component } = await import("../page/dashboard");
+
+      return { Component };
+    },
   },
   {
     path: "/sign-up",
-    Component: SignUpPage,
+    lazy: async () => {
+      const { SignUpPage: Component } = await import("../page/sign-up");
+
+      return { Component };
+    },
   },
   {
     path: "/login",
-    Component: LoginPage,
+    lazy: async () => {
+      const { LoginPage: Component } = await import("../page/login");
+
+      return { Component };
+    },
   },
 ]);

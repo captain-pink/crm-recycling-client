@@ -1,70 +1,97 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import AddIcon from '@mui/icons-material/Add';
-
-import { DeviceCard, Summary } from "../../component";
+import AddIcon from "@mui/icons-material/Add";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop";
-import { AddDeviceModelDialogComponent, DeviceModel } from "../../component/add-device-dialog/add-device-model-dialog.component.tsx";
+import { useMutation, useQuery } from "@apollo/client";
 
-const QUERY_STATS = gql`
-query ManufacturerStats {
-  queryManufacturerStats {
-    total
-    recycled
-    totalRawWeight
-  }
-}
-`
-
-const QUERY_DEVICE_MODELS = gql`
-query DeviceModels {
-  queryDeviceCategories {
-    id
-  }
-}
-`
+import {
+  DeviceCard,
+  Summary,
+  DeviceTable,
+  AddDeviceModelDialogComponent,
+  DeviceModel,
+} from "../../component";
+import { QUERY_DEVICE_MODELS, QUERY_STATS } from "../../api/query";
+import { MUTATION_CREATE_DEVICE_CATEGORY } from "../../api/mutation";
+import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
+  const navigate = useNavigate();
   const [addDeviceModalOpened, setAddDeviceModalOpened] = useState(false);
-  const { data: { queryManufacturerStats } = {}, loading, error } = useQuery<{
+  const {
+    data: { queryManufacturerStats } = {},
+    loading,
+    error,
+  } = useQuery<{
     queryManufacturerStats: {
-      total: number,
-      recycled: number,
-      totalRawWeight: number,
-    }
+      total: number;
+      recycled: number;
+      totalRawWeight: number;
+    };
   }>(QUERY_STATS, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
 
+  const {
+    data: { queryDeviceCategories } = {},
+    // loading,
+    // error,
+  } = useQuery<{
+    queryDeviceCategories: Array<DeviceModel>;
+  }>(QUERY_DEVICE_MODELS, {
+    fetchPolicy: "network-only",
+  });
+
+  // TODO: To process error and loading cases
+  const [saveDeviceModel, { data }] = useMutation(
+    MUTATION_CREATE_DEVICE_CATEGORY,
+    { refetchQueries: [QUERY_DEVICE_MODELS] }
+  );
+
   const handleAddDevice = () => {
-    setAddDeviceModalOpened(true)
-  }
+    setAddDeviceModalOpened(true);
+  };
 
   const handleSaveDeviceModel = async (deviceModel: DeviceModel) => {
-    console.log(deviceModel);
-  }
+    const { type: deviceType, materials, title: category } = deviceModel;
+
+    saveDeviceModel({
+      variables: {
+        deviceType,
+        category,
+        components: materials.map(({ amount, name }) => ({
+          material: name,
+          amount,
+        })),
+      },
+    });
+  };
 
   if (loading) {
     return (
       <Backdrop
         open={loading}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: "blur(5px)",
+        }}
       >
         <CircularProgress color="primary" />
       </Backdrop>
-    )
+    );
   }
 
   if (error) {
+    navigate("/login");
+
     return null;
   }
-
 
   return (
     <Container disableGutters sx={{ padding: "64px 144px" }}>
@@ -83,53 +110,33 @@ export function Dashboard() {
         totalRawWeight={queryManufacturerStats!.totalRawWeight}
       />
 
-      <Box height={'4rem'}/>
+      <Box height={"4rem"} />
 
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
         marginBottom="1.5rem"
       >
-        <Typography
-          color="primary"
-          variant="h5"
-          fontWeight={400}
-          fontSize={24}
-        >
+        <Typography color="primary" variant="h5" fontWeight={400} fontSize={24}>
           Device Models
         </Typography>
-        <Button variant="contained" endIcon={<AddIcon/>} onClick={handleAddDevice}>
+        <Button
+          variant="contained"
+          endIcon={<AddIcon />}
+          onClick={handleAddDevice}
+        >
           Add Device Model
         </Button>
       </Box>
-      <Grid spacing={'1.5rem'} container>
-        <Grid item xl={4} lg={4}>
-          <DeviceCard
-            name="Iphone 15 pro"
-            deviceType="Phone"
-          />
-        </Grid>
-        <Grid item xl={4} lg={4}>
-          <DeviceCard
-            name="Iphone 15 pro"
-            deviceType="Phone"
-          />
-        </Grid>
-        <Grid item xl={4} lg={4}>
-          <DeviceCard
-            name="Iphone 15 pro"
-            deviceType="Phone"
-          />
-        </Grid>
-        <Grid item xl={4} lg={4}>
-          <DeviceCard
-            name="Iphone 15 pro"
-            deviceType="Phone"
-          />
-        </Grid>
+      <Grid spacing={"1.5rem"} container>
+        {queryDeviceCategories?.map(({ title, type }: DeviceModel) => (
+          <Grid item xl={4} lg={4}>
+            <DeviceCard name={title} deviceType={type} />
+          </Grid>
+        ))}
       </Grid>
       <AddDeviceModelDialogComponent
         onSave={handleSaveDeviceModel}
@@ -138,10 +145,27 @@ export function Dashboard() {
       />
       <Backdrop
         open={loading}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: "blur(5px)",
+        }}
       >
         <CircularProgress color="primary" />
       </Backdrop>
+
+      <Container disableGutters sx={{ marginTop: "64px" }}>
+        <Typography
+          sx={{ marginBottom: "24px" }}
+          color="primary"
+          variant="h5"
+          fontWeight={400}
+          fontSize={24}
+        >
+          Devices
+        </Typography>
+        <DeviceTable />
+      </Container>
     </Container>
   );
 }

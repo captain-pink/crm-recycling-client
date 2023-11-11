@@ -12,108 +12,109 @@ import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
 const MUTATION_LOGIN = gql`
-mutation MyMutation($data: LoginInput!) {
-  login(data: $data) {
-    status
+  mutation MyMutation($data: LoginInput!) {
+    login(data: $data) {
+      status
+    }
   }
-}
-`
+`;
 
 export function LoginPage() {
   const theme = useTheme();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [login, { error, loading }] = useMutation<{
     login: {
       status: string;
-    }
+    };
   }>(MUTATION_LOGIN);
   const navigate = useNavigate();
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPasswordError('')
+    setPasswordError("");
 
     const res = await login({
       variables: {
         data: {
           email: email,
           password: password,
-        }
-      }
-    })
-    console.log(res)
-    if (res.data?.login.status === 'OK') {
-      navigate('/')
+        },
+      },
+    });
+
+    if (res.data?.login.status === "OK") {
+      navigate("/");
     } else {
-      setPasswordError('Email or password is incorrect, please try again.')
+      setPasswordError("Email or password is incorrect, please try again.");
     }
   };
 
   if (error) {
     // TODO handle error
-    return (
-      <div>Error</div>
-    )
+    return <div>Error</div>;
   }
 
   return (
-    <Box sx={{ display: 'flex', width: '100%' }}>
+    <Box sx={{ display: "flex", width: "100%" }}>
       <CardMedia
         loading="lazy"
         component="img"
-        sx={{ width: '50%', height: '100vh', objectFit: 'cover', objectPosition: 'center' }}
+        sx={{
+          width: "50%",
+          height: "100vh",
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
         image="/public/critical-raw-material-background.png"
         alt="Raw Material Recycling Background Image"
       />
       <Box
         sx={{
-          width: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          width: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Box
           component="form"
           onSubmit={(e) => handleFormSubmit(e)}
           sx={{
-            padding: '5rem',
+            padding: "5rem",
             flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '2rem',
+            display: "flex",
+            flexDirection: "column",
+            gap: "2rem",
           }}
         >
           <Typography
-            color={'primary'}
+            color={"primary"}
             variant="h3"
             fontSize={24}
             fontWeight={500}
             gutterBottom
-            sx={{ textAlign: 'center' }}
+            sx={{ textAlign: "center" }}
           >
             Login
           </Typography>
 
-          {passwordError && (
-            <Alert severity="error">{passwordError}</Alert>
-          )}
+          {passwordError && <Alert severity="error">{passwordError}</Alert>}
 
           <TextField
             required
-            type='email'
+            type="email"
             id="email"
             label="Email"
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             required
-            type='password'
+            type="password"
             id="password"
             label="Password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             disabled={loading}
@@ -127,10 +128,14 @@ export function LoginPage() {
       </Box>
       <Backdrop
         open={loading}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: "blur(5px)",
+        }}
       >
         <CircularProgress color="primary" />
       </Backdrop>
     </Box>
-  )
+  );
 }
