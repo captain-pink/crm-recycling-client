@@ -45,7 +45,7 @@ export function LoginPage() {
     });
 
     if (res.data?.login.status === "OK") {
-      navigate("/");
+      navigate("/dashboard");
     } else {
       setPasswordError("Email or password is incorrect, please try again.");
     }
