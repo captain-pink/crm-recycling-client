@@ -7,18 +7,18 @@ import Typography from "@mui/material/Typography";
 
 type DeviceCardProps = {
   name: string;
-  serial: string;
   deviceType: string;
 };
 
-export function DeviceCard({ name, serial, deviceType }: DeviceCardProps) {
+export function DeviceCard({ name }: DeviceCardProps) {
   return (
     <Card
       elevation={0}
       sx={{
-        backgroundColor: "#2838410D",
+        backgroundColor: "#E3F1F099",
+        position: "relative",
         border: "1px solid #2838410D",
-        borderRadius: "16px",
+        borderRadius: "1rem",
       }}
     >
       <CardContent>
@@ -29,77 +29,41 @@ export function DeviceCard({ name, serial, deviceType }: DeviceCardProps) {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "space-between",
-            marginBottom: "16px",
           }}
         >
           <Typography
+            color={"#000000DE"}
             variant="body1"
-            fontSize="14px"
+            fontSize="12px"
             fontWeight={400}
             sx={{ textTransform: "uppercase" }}
           >
             Device
           </Typography>
-          <Typography variant="body1" fontSize="20px" fontWeight={500}>
+          <Typography color={"primary"} variant="body1" fontSize="20px" fontWeight={500} marginBottom={'.5rem'}>
             {name}
           </Typography>
-        </Container>
-        <Container
-          disableGutters
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Container
-            disableGutters
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "space-between",
-              marginRight: "32px",
-            }}
-          >
-            <Typography
-              variant="body1"
-              fontSize="14px"
-              fontWeight={400}
-              sx={{ textTransform: "uppercase" }}
-            >
-              Serial number
-            </Typography>
-            <Typography variant="body1" fontSize="16px" fontWeight={400}>
-              {serial}
-            </Typography>
-          </Container>
 
-          <Container
-            disableGutters
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "space-between",
-            }}
+          <Typography
+            color={"#000000DE"}
+            variant="body1"
+            fontSize="12px"
+            fontWeight={400}
+            sx={{ textTransform: "uppercase" }}
           >
-            <Typography
-              variant="body1"
-              fontSize="14px"
-              fontWeight={400}
-              sx={{ textTransform: "uppercase" }}
-            >
-              Type
-            </Typography>
-            <Typography variant="body1" fontSize="16px" fontWeight={400}>
-              {deviceType}
-            </Typography>
-          </Container>
+            Type
+          </Typography>
+          <Typography marginTop={'5px'} lineHeight={1} color="primary" variant="body1" fontSize="16px" fontWeight={400}>
+            Phone
+          </Typography>
         </Container>
       </CardContent>
-      <CardActions>
-        <Button>Open details</Button>
+      <CardActions sx={{
+        position: 'absolute',
+        bottom: '0',
+        right: '0',
+      }}>
+        <Button size={"small"}>Open details</Button>
       </CardActions>
     </Card>
   );
