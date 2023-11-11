@@ -34,7 +34,7 @@ export function DeviceCard({ name }: DeviceCardProps) {
           <Typography
             color={"#000000DE"}
             variant="body1"
-            fontSize="12px"
+            fontSize="0.75rem"
             fontWeight={400}
             sx={{ textTransform: "uppercase" }}
           >
@@ -47,7 +47,7 @@ export function DeviceCard({ name }: DeviceCardProps) {
           <Typography
             color={"#000000DE"}
             variant="body1"
-            fontSize="12px"
+            fontSize="0.75rem"
             fontWeight={400}
             sx={{ textTransform: "uppercase" }}
           >

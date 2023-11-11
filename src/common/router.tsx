@@ -36,4 +36,14 @@ export const APP_ROUTER = createBrowserRouter([
       return { Component };
     },
   },
+  {
+    path: "/recycle",
+    lazy: async () => {
+      const { RecycleDevicePage: Component } = await import(
+        "../page/recycle-device"
+      );
+
+      return { Component };
+    }
+  }
 ]);
