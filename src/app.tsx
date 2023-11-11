@@ -12,8 +12,14 @@ if (__DEV__) {
 }
 
 const theme = createTheme({
-  palette: {},
-  typography: {},
+  palette: {
+    primary: {
+      main: '#283841',
+    }
+  },
+  typography: {
+    fontFamily: "Roboto",
+  },
   components: {},
 });
 
