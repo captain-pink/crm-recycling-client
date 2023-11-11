@@ -58,7 +58,7 @@ export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (prop
           <IconButton
             aria-label="close"
             onClick={props.onClose}
-            sx={{ color: (theme) => theme.palette.grey[500], }}
+            sx={{ color: (theme) => theme.palette.grey[500], alignSelf: 'center' }}
           >
             <CloseIcon/>
           </IconButton>
