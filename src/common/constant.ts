@@ -1,0 +1,16 @@
+export const CRITICAL_RAW_MATERIALS = [
+  'Lithium',
+  'Cobalt',
+  'Tantalum',
+  'Indium',
+  'Gallium',
+  'Rare Earth Elements (REEs)',
+  'Tin',
+  'Copper',
+  'Gold',
+  'Silver',
+  'Palladium and Platinum',
+  'Graphite',
+  'Silicon',
+  'Nickel',
+]

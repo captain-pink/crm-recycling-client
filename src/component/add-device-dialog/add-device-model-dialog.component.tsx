@@ -12,10 +12,11 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import Typography from "@mui/material/Typography";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { CRITICAL_RAW_MATERIALS } from "../../common/constant.ts";
 
 type DeviceType = 'phone' | 'tablet' | 'laptop';
 
@@ -42,11 +43,12 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
     setMaterials([...materials, { name: '', amount: 0 }]);
   }
 
-  const handleAddDeviceModel = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const deviceModel: DeviceModel = {
       type: deviceType,
       title: deviceTitle,
-      materials,
+      materials: materials.filter(material => material.name !== '')
     };
 
     await props.onSave(deviceModel);
@@ -67,6 +69,8 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
       }}
     >
       <Box
+        component="form"
+        onSubmit={handleSubmit}
         sx={{
           padding: '1.5rem 2.5rem',
           position: 'relative',
@@ -97,7 +101,7 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
             Device info
           </Typography>
 
-          <FormControl fullWidth margin="normal">
+          <FormControl required fullWidth margin="normal">
             <InputLabel id="device-type-label">Device Type</InputLabel>
             <Select
               required
@@ -146,13 +150,24 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
                       setMaterials(newMaterials);
                     }}
                   >
-                    {/* Populate with actual materials */}
-                    <MenuItem value="aluminum">Aluminum</MenuItem>
-                    <MenuItem value="copper">Copper</MenuItem>
+                    {
+                      CRITICAL_RAW_MATERIALS.map(crm => (
+                        <MenuItem key={crm} value={crm}>{crm}</MenuItem>
+                      ))
+                    }
                   </Select>
                 </FormControl>
-                <FormControl fullWidth variant="outlined" margin={'normal'}>
+                <FormControl
+                  fullWidth
+                  variant="outlined"
+                  margin={'normal'}
+                >
                   <OutlinedInput
+                    onChange={e => {
+                      const newMaterials = [...materials];
+                      newMaterials[index].amount = Number.parseInt(e.target.value, 10);
+                      setMaterials(newMaterials);
+                    }}
                     id="outlined-adornment-weight"
                     endAdornment={<InputAdornment position="end">g</InputAdornment>}
                     aria-describedby="outlined-weight-helper-text"
@@ -181,7 +196,7 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
         </DialogContent>
         <DialogActions>
           <Button onClick={props.onClose}>Cancel</Button>
-          <Button color={"primary"} variant="contained" onClick={handleAddDeviceModel}>
+          <Button type="submit" color={"primary"} variant="contained">
             Add Device Model
           </Button>
         </DialogActions>
