@@ -7,7 +7,11 @@
     "dev": "bunx --bun vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "aws:bootstrap": "cdk bootstrap --force",
+    "aws:diff": "cdk diff",
+    "aws:deploy": "cdk deploy --require-approval never",
+    "client:deploy": "bun run build && bun run aws:bootstrap && bun run aws:diff && bun run aws:deploy"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
@@ -22,14 +26,18 @@
     "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
+    "@types/node": "^20.9.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "aws-cdk": "^2.106.1",
+    "aws-cdk-lib": "^2.106.1",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
