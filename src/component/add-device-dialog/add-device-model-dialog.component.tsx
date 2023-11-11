@@ -18,12 +18,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { CRITICAL_RAW_MATERIALS } from "../../common/constant.ts";
 
-type DeviceType = 'phone' | 'tablet' | 'laptop';
+type DeviceType = "PHONE" | "TABLET" | "LAPTOP";
 
 export interface DeviceModel {
   type: DeviceType;
   title: string;
-  materials: { name: string, amount: number }[];
+  materials: { name: string; amount: number }[];
 }
 
 interface AddDeviceModelDialogComponentProps {
@@ -32,32 +32,35 @@ interface AddDeviceModelDialogComponentProps {
   onSave: (deviceModel: DeviceModel) => Promise<void>;
 }
 
-export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProps> = (props) => {
-  const [deviceType, setDeviceType] = useState<DeviceType>('phone');
-  const [deviceTitle, setDeviceTitle] = useState<string>('');
-  const [materials, setMaterials] = useState<{ name: string, amount: number }[]>([
-    { name: '', amount: 0 },
-  ]);
+export const AddDeviceModelDialogComponent: FC<
+  AddDeviceModelDialogComponentProps
+> = (props) => {
+  const [deviceType, setDeviceType] = useState<DeviceType>("PHONE");
+  const [deviceTitle, setDeviceTitle] = useState<string>("");
+  const [materials, setMaterials] = useState<
+    { name: string; amount: number }[]
+  >([{ name: "", amount: 0 }]);
 
   const handleAddMaterial = () => {
-    setMaterials([...materials, { name: '', amount: 0 }]);
-  }
+    setMaterials([...materials, { name: "", amount: 0 }]);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const deviceModel: DeviceModel = {
       type: deviceType,
       title: deviceTitle,
-      materials: materials.filter(material => material.name !== '')
+      materials: materials.filter((material) => material.name !== ""),
     };
 
     await props.onSave(deviceModel);
 
-    setDeviceType('phone');
-    setDeviceTitle('');
-    setMaterials([{ name: '', amount: 0 }]);
+    setDeviceType("PHONE");
+    setDeviceTitle("");
+    setMaterials([{ name: "", amount: 0 }]);
+
     props.onClose();
-  }
+  };
 
   return (
     <Dialog
@@ -65,33 +68,38 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
       open={props.open}
       onClose={props.onClose}
       sx={{
-        padding: '1.5rem 2.5rem',
+        padding: "1.5rem 2.5rem",
       }}
     >
       <Box
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          padding: '1.5rem 2.5rem',
-          position: 'relative',
+          padding: "1.5rem 2.5rem",
+          position: "relative",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
           <DialogTitle>Add Device Model</DialogTitle>
           <IconButton
             aria-label="close"
             onClick={props.onClose}
-            sx={{ color: (theme) => theme.palette.grey[500], alignSelf: 'center' }}
+            sx={{
+              color: (theme) => theme.palette.grey[500],
+              alignSelf: "center",
+            }}
           >
-            <CloseIcon/>
+            <CloseIcon />
           </IconButton>
         </Box>
-        <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+        >
           <Typography
             color={"#000000DE"}
             variant="body1"
@@ -111,9 +119,9 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
               label="Device Type"
               onChange={(e) => setDeviceType(e.target.value as DeviceType)}
             >
-              <MenuItem value="phone">Phone</MenuItem>
-              <MenuItem value="tablet">Tablet</MenuItem>
-              <MenuItem value="laptop">Laptop</MenuItem>
+              <MenuItem value="PHONE">Phone</MenuItem>
+              <MenuItem value="TABLET">Tablet</MenuItem>
+              <MenuItem value="LAPTOP">Laptop</MenuItem>
             </Select>
           </FormControl>
           <TextField
@@ -136,9 +144,11 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
               Raw materials used
             </Typography>
             {materials.map((material, index) => (
-              <Box key={index} sx={{ display: 'flex', gap: 1 }}>
+              <Box key={index} sx={{ display: "flex", gap: 1 }}>
                 <FormControl fullWidth margin="normal">
-                  <InputLabel id={`material-type-label-${index}`}>Material</InputLabel>
+                  <InputLabel id={`material-type-label-${index}`}>
+                    Material
+                  </InputLabel>
                   <Select
                     labelId={`material-type-label-${index}`}
                     id={`material-type-${index}`}
@@ -150,46 +160,51 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
                       setMaterials(newMaterials);
                     }}
                   >
-                    {
-                      CRITICAL_RAW_MATERIALS.map(crm => (
-                        <MenuItem key={crm} value={crm}>{crm}</MenuItem>
-                      ))
-                    }
+                    {CRITICAL_RAW_MATERIALS.map((crm) => (
+                      <MenuItem key={crm} value={crm}>
+                        {crm}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
-                <FormControl
-                  fullWidth
-                  variant="outlined"
-                  margin={'normal'}
-                >
+                <FormControl fullWidth variant="outlined" margin={"normal"}>
                   <OutlinedInput
-                    onChange={e => {
+                    onChange={(e) => {
                       const newMaterials = [...materials];
-                      newMaterials[index].amount = Number.parseInt(e.target.value, 10);
+                      newMaterials[index].amount = Number.parseInt(
+                        e.target.value,
+                        10
+                      );
                       setMaterials(newMaterials);
                     }}
                     id="outlined-adornment-weight"
-                    endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                    endAdornment={
+                      <InputAdornment position="end">g</InputAdornment>
+                    }
                     aria-describedby="outlined-weight-helper-text"
                     inputProps={{
-                      'aria-label': 'weight',
+                      "aria-label": "weight",
                     }}
                   />
                 </FormControl>
                 <IconButton
-                  sx={{ alignSelf: 'center' }}
+                  sx={{ alignSelf: "center" }}
                   aria-label="close"
                   onClick={() => {
                     const newMaterials = [...materials];
                     newMaterials.splice(index, 1);
                     setMaterials(newMaterials);
                   }}
-                  >
-                  <CloseIcon/>
+                >
+                  <CloseIcon />
                 </IconButton>
               </Box>
             ))}
-            <Button color={"primary"} endIcon={<AddIcon/>} onClick={handleAddMaterial}>
+            <Button
+              color={"primary"}
+              endIcon={<AddIcon />}
+              onClick={handleAddMaterial}
+            >
               Add material
             </Button>
           </Box>
@@ -202,5 +217,5 @@ export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProp
         </DialogActions>
       </Box>
     </Dialog>
-  )
-}
+  );
+};
