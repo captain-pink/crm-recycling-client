@@ -5,7 +5,7 @@ export const APP_ROUTER = createBrowserRouter([
   {
     path: "/",
     lazy: async () => {
-      const { SignUpPage: Component } = await import("../page/sign-up");
+      const { Dashboard: Component } = await import("../page/dashboard");
 
       return { Component };
     },
