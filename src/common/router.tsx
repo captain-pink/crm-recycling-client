@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { SignUpPage } from "../page";
+import { LoginPage } from "../page/login";
 
 export const APP_ROUTER = createBrowserRouter([
   {
@@ -13,5 +14,9 @@ export const APP_ROUTER = createBrowserRouter([
   {
     path: "/sign-up",
     Component: SignUpPage,
+  },
+  {
+    path: "/login",
+    Component: LoginPage,
   },
 ]);
