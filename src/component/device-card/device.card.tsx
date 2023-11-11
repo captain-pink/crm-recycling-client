@@ -13,7 +13,14 @@ type DeviceCardProps = {
 
 export function DeviceCard({ name, serial, deviceType }: DeviceCardProps) {
   return (
-    <Card elevation={0} sx={{ backgroundColor: "rgba(133, 131, 20, 0.05)" }}>
+    <Card
+      elevation={0}
+      sx={{
+        backgroundColor: "#2838410D",
+        border: "1px solid #2838410D",
+        borderRadius: "16px",
+      }}
+    >
       <CardContent>
         <Container
           disableGutters
@@ -25,8 +32,17 @@ export function DeviceCard({ name, serial, deviceType }: DeviceCardProps) {
             marginBottom: "16px",
           }}
         >
-          <Typography sx={{ textTransform: "uppercase" }}>Device</Typography>
-          <Typography>{name}</Typography>
+          <Typography
+            variant="body1"
+            fontSize="14px"
+            fontWeight={400}
+            sx={{ textTransform: "uppercase" }}
+          >
+            Device
+          </Typography>
+          <Typography variant="body1" fontSize="20px" fontWeight={500}>
+            {name}
+          </Typography>
         </Container>
         <Container
           disableGutters
@@ -46,10 +62,17 @@ export function DeviceCard({ name, serial, deviceType }: DeviceCardProps) {
               marginRight: "32px",
             }}
           >
-            <Typography sx={{ textTransform: "uppercase" }}>
+            <Typography
+              variant="body1"
+              fontSize="14px"
+              fontWeight={400}
+              sx={{ textTransform: "uppercase" }}
+            >
               Serial number
             </Typography>
-            <Typography>{serial}</Typography>
+            <Typography variant="body1" fontSize="16px" fontWeight={400}>
+              {serial}
+            </Typography>
           </Container>
 
           <Container
@@ -61,13 +84,22 @@ export function DeviceCard({ name, serial, deviceType }: DeviceCardProps) {
               alignItems: "space-between",
             }}
           >
-            <Typography sx={{ textTransform: "uppercase" }}>Type</Typography>
-            <Typography>{deviceType}</Typography>
+            <Typography
+              variant="body1"
+              fontSize="14px"
+              fontWeight={400}
+              sx={{ textTransform: "uppercase" }}
+            >
+              Type
+            </Typography>
+            <Typography variant="body1" fontSize="16px" fontWeight={400}>
+              {deviceType}
+            </Typography>
           </Container>
         </Container>
       </CardContent>
       <CardActions>
-        <Button>Show more</Button>
+        <Button>Open details</Button>
       </CardActions>
     </Card>
   );
