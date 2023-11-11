@@ -11,6 +11,7 @@ import { useQuery } from "@apollo/client";
 
 import { Device } from "../../api/type";
 import { QUERY_DEVICES } from "../../api/query";
+import Typography from "@mui/material/Typography";
 
 export function DeviceTable() {
   const {
@@ -25,6 +26,21 @@ export function DeviceTable() {
 
   if (error || loading) {
     return null;
+  }
+
+  if (!queryDevices?.length) {
+    return (
+      <Typography
+        color="primary"
+        variant="h5"
+        fontWeight={300}
+        fontSize={'1rem'}
+        textAlign={'center'}
+        sx={{ padding: '5rem 2rem', margin: '0 auto' }}
+      >
+        No Devices Found.
+      </Typography>
+    );
   }
 
   return (

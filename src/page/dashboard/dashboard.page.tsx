@@ -131,13 +131,26 @@ export function Dashboard() {
           Add Device Model
         </Button>
       </Box>
-      <Grid spacing={"1.5rem"} container>
-        {queryDeviceCategories?.map(({ title, type }: DeviceModel) => (
-          <Grid item xl={4} lg={4}>
-            <DeviceCard name={title} deviceType={type} />
-          </Grid>
-        ))}
-      </Grid>
+      {queryDeviceCategories?.length ? (
+        <Grid spacing={"1.5rem"} container>
+          {queryDeviceCategories?.map(({ title, type }: DeviceModel) => (
+            <Grid item xl={4} lg={4}>
+              <DeviceCard name={title} deviceType={type}/>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Typography
+          color="primary"
+          variant="h5"
+          fontWeight={300}
+          fontSize={'1rem'}
+          textAlign={'center'}
+          sx={{ padding: '5rem 2rem' }}
+        >
+          No Device Models yet, please add one.
+        </Typography>
+      )}
       <AddDeviceModelDialogComponent
         onSave={handleSaveDeviceModel}
         open={addDeviceModalOpened}
