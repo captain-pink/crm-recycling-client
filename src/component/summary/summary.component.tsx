@@ -2,9 +2,13 @@ import { FC } from "react";
 import Box from "@mui/material/Box";
 import { SummaryCard } from "./summary-card.component.tsx";
 
-export const Summary: FC = () => {
-  // TODO: fetch data from API
+interface SummaryProps {
+  total: number,
+  recycled: number,
+  totalRawWeight: number,
+}
 
+export const Summary: FC<SummaryProps> = (props) => {
   return (
     <Box
       sx={{
@@ -14,9 +18,9 @@ export const Summary: FC = () => {
         gap: '1.5rem',
       }}
     >
-      <SummaryCard title="Total Devices" amount={10426}/>
-      <SummaryCard title="Recycled Devices" amount={5275}/>
-      <SummaryCard title="Total raw materials weight" amount={286} unit={'g'}/>
+      <SummaryCard title="Total Devices" amount={props.total}/>
+      <SummaryCard title="Recycled Devices" amount={props.recycled}/>
+      <SummaryCard title="Total raw materials weight" amount={props.totalRawWeight} unit={'g'}/>
     </Box>
   );
 };

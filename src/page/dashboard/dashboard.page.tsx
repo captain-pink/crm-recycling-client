@@ -8,13 +8,51 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Modal } from "@mui/material";
 import { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
+
+const QUERY_STATS = gql`
+query ManufacturerStats {
+  queryManufacturerStats {
+    total
+    recycled
+    totalRawWeight
+  }
+}
+`
 
 export function Dashboard() {
   const [addDeviceModalOpened, setAddDeviceModalOpened] = useState(false);
+  const { data: { queryManufacturerStats } = {}, loading, error } = useQuery<{
+    queryManufacturerStats: {
+      total: number,
+      recycled: number,
+      totalRawWeight: number,
+    }
+  }>(QUERY_STATS, {
+    fetchPolicy: 'network-only',
+  });
 
   const handleAddDevice = () => {
     setAddDeviceModalOpened(true)
   }
+
+  if (loading) {
+    return (
+      <Backdrop
+        open={loading}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}
+      >
+        <CircularProgress color="primary" />
+      </Backdrop>
+    )
+  }
+
+  if (error) {
+    return null;
+  }
+
 
   return (
     <Container disableGutters sx={{ padding: "64px 144px" }}>
@@ -27,7 +65,11 @@ export function Dashboard() {
       >
         Dashboard
       </Typography>
-      <Summary />
+      <Summary
+        total={queryManufacturerStats!.total}
+        recycled={queryManufacturerStats!.recycled}
+        totalRawWeight={queryManufacturerStats!.totalRawWeight}
+      />
 
       <Box height={'4rem'}/>
 
@@ -82,6 +124,12 @@ export function Dashboard() {
 
         </Box>
       </Modal>
+      <Backdrop
+        open={loading}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}
+      >
+        <CircularProgress color="primary" />
+      </Backdrop>
     </Container>
   );
 }
