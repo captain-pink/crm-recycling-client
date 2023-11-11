@@ -10,7 +10,7 @@ import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
-import { AddDeviceDialogComponent } from "../../component/add-device-dialog/add-device-dialog.component";
+import { AddDeviceModelDialogComponent, DeviceModel } from "../../component/add-device-dialog/add-device-model-dialog.component.tsx";
 
 const QUERY_STATS = gql`
 query ManufacturerStats {
@@ -18,6 +18,14 @@ query ManufacturerStats {
     total
     recycled
     totalRawWeight
+  }
+}
+`
+
+const QUERY_DEVICE_MODELS = gql`
+query DeviceModels {
+  queryDeviceCategories {
+    id
   }
 }
 `
@@ -36,6 +44,10 @@ export function Dashboard() {
 
   const handleAddDevice = () => {
     setAddDeviceModalOpened(true)
+  }
+
+  const handleSaveDeviceModel = async (deviceModel: DeviceModel) => {
+    console.log(deviceModel);
   }
 
   if (loading) {
@@ -87,10 +99,10 @@ export function Dashboard() {
           fontWeight={400}
           fontSize={24}
         >
-          Device list
+          Device Models
         </Typography>
         <Button variant="contained" endIcon={<AddIcon/>} onClick={handleAddDevice}>
-          Add device
+          Add Device Model
         </Button>
       </Box>
       <Grid spacing={'1.5rem'} container>
@@ -119,7 +131,11 @@ export function Dashboard() {
           />
         </Grid>
       </Grid>
-      <AddDeviceDialogComponent open={addDeviceModalOpened} onClose={() => setAddDeviceModalOpened(false)}/>
+      <AddDeviceModelDialogComponent
+        onSave={handleSaveDeviceModel}
+        open={addDeviceModalOpened}
+        onClose={() => setAddDeviceModalOpened(false)}
+      />
       <Backdrop
         open={loading}
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)', }}

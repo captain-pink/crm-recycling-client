@@ -17,20 +17,44 @@ import Typography from "@mui/material/Typography";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
-interface AddDeviceDialogComponentProps {
-  open: boolean;
-  onClose: () => void;
+type DeviceType = 'phone' | 'tablet' | 'laptop';
+
+export interface DeviceModel {
+  type: DeviceType;
+  title: string;
+  materials: { name: string, amount: number }[];
 }
 
-export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (props) => {
-  const [deviceType, setDeviceType] = useState('phone');
-  const [deviceTitle, setDeviceTitle] = useState('');
+interface AddDeviceModelDialogComponentProps {
+  open: boolean;
+  onClose: () => void;
+  onSave: (deviceModel: DeviceModel) => Promise<void>;
+}
+
+export const AddDeviceModelDialogComponent: FC<AddDeviceModelDialogComponentProps> = (props) => {
+  const [deviceType, setDeviceType] = useState<DeviceType>('phone');
+  const [deviceTitle, setDeviceTitle] = useState<string>('');
   const [materials, setMaterials] = useState<{ name: string, amount: number }[]>([
     { name: '', amount: 0 },
   ]);
 
   const handleAddMaterial = () => {
     setMaterials([...materials, { name: '', amount: 0 }]);
+  }
+
+  const handleAddDeviceModel = async () => {
+    const deviceModel: DeviceModel = {
+      type: deviceType,
+      title: deviceTitle,
+      materials,
+    };
+
+    await props.onSave(deviceModel);
+
+    setDeviceType('phone');
+    setDeviceTitle('');
+    setMaterials([{ name: '', amount: 0 }]);
+    props.onClose();
   }
 
   return (
@@ -54,7 +78,7 @@ export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (prop
             justifyContent: 'space-between',
           }}
         >
-          <DialogTitle>Add Device</DialogTitle>
+          <DialogTitle>Add Device Model</DialogTitle>
           <IconButton
             aria-label="close"
             onClick={props.onClose}
@@ -76,11 +100,12 @@ export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (prop
           <FormControl fullWidth margin="normal">
             <InputLabel id="device-type-label">Device Type</InputLabel>
             <Select
+              required
               labelId="device-type-label"
               id="device-type"
               value={deviceType}
               label="Device Type"
-              onChange={(e) => setDeviceType(e.target.value)}
+              onChange={(e) => setDeviceType(e.target.value as DeviceType)}
             >
               <MenuItem value="phone">Phone</MenuItem>
               <MenuItem value="tablet">Tablet</MenuItem>
@@ -88,7 +113,7 @@ export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (prop
             </Select>
           </FormControl>
           <TextField
-            autoFocus
+            required
             id="device-title"
             label="Device Title"
             type="text"
@@ -156,8 +181,8 @@ export const AddDeviceDialogComponent: FC<AddDeviceDialogComponentProps> = (prop
         </DialogContent>
         <DialogActions>
           <Button onClick={props.onClose}>Cancel</Button>
-          <Button color={"primary"} variant="contained" onClick={props.onClose}>
-            Add device
+          <Button color={"primary"} variant="contained" onClick={handleAddDeviceModel}>
+            Add Device Model
           </Button>
         </DialogActions>
       </Box>
