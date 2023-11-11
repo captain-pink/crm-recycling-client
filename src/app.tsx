@@ -15,7 +15,8 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#283841',
-    }
+      light: '#283841B2',
+    },
   },
   typography: {
     fontFamily: "Roboto",
