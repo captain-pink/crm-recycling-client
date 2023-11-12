@@ -5,13 +5,77 @@ import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import { MenuLink } from "../../component/menu-link/menu.link.tsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import MailIcon from "@mui/icons-material/Mail";
+import { gql, useQuery } from "@apollo/client";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
+
+
+const QUERY_DEVICE = gql`
+  query QueryDeviceInfo($manufacturerId: String!, $serialNumber: String!) {
+    queryDeviceInfo(manufacturerId:$manufacturerId, serialNumber:$serialNumber) {
+      manufacturerId
+      serialNumber
+      category
+      components {
+        material
+        amount
+      }
+      isRecycled
+      recycledBy
+    }
+  }
+`
+
+export interface Component {
+  material: string;
+  amount: number;
+}
+
+export interface Device {
+  manufacturerId: string;
+  serialNumber: string;
+  category: string;
+  components?: Array<Component>;
+  isRecycled: boolean;
+  recycledBy: string;
+}
 
 export const RecycleDevicePage: FC = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+
+  const manufacturerId = params.get('manufacturerId');
+  const serialNumber = params.get('serialNumber');
+
+  const { data, loading, error } = useQuery<{
+    queryDeviceInfo: Device;
+  }>(QUERY_DEVICE, {
+    skip: !manufacturerId || !serialNumber,
+    fetchPolicy: "network-only",
+    variables: {
+      manufacturerId: manufacturerId,
+      serialNumber: serialNumber
+    }
+  });
+
+  if (loading || error) {
+    return (
+      <Backdrop
+        open={loading}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <CircularProgress color="primary"/>
+      </Backdrop>
+    )
+  }
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -164,34 +228,37 @@ export const RecycleDevicePage: FC = () => {
                   Raw materials
                 </Typography>
 
-                <Box
-                  sx={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-                >
-                  <Typography
-                    color={"primary"}
-                    variant="body1"
-                    fontSize="0.875rem"
-                    fontWeight={400}
-                  >
-                    Aluminum
-                  </Typography>
+                {data?.queryDeviceInfo.components?.map((c) => (
                   <Box
-                    sx={{
-                      height: "1.5rem",
-                      flexGrow: 1,
-                      borderBottom: "1px dashed #2838411A",
-                      transform: "translateY(-0.5rem)",
-                    }}
-                  />
-                  <Typography
-                    color={"primary"}
-                    variant="body1"
-                    fontSize="1rem"
-                    fontWeight={400}
+                    sx={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
                   >
-                    10g
-                  </Typography>
-                </Box>
+                    <Typography
+                      color={"primary"}
+                      variant="body1"
+                      fontSize="0.875rem"
+                      fontWeight={400}
+                    >
+                      {c.material}
+                    </Typography>
+                    <Box
+                      sx={{
+                        height: "1.5rem",
+                        flexGrow: 1,
+                        borderBottom: "1px dashed #2838411A",
+                        transform: "translateY(-0.5rem)",
+                      }}
+                    />
+                    <Typography
+                      color={"primary"}
+                      variant="body1"
+                      fontSize="1rem"
+                      fontWeight={400}
+                    >
+                      {c.amount} g
+                    </Typography>
+                  </Box>
+                ))}
+
               </Box>
             </Card>
 
