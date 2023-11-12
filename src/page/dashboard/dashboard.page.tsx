@@ -11,10 +11,16 @@ import { useMutation, useQuery } from "@apollo/client";
 import SettingsIcon from "@mui/icons-material/Settings";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import { AddDeviceModelDialogComponent, DeviceCard, DeviceModel, DeviceTable, Summary, } from "../../component";
+import {
+  AddDeviceModelDialogComponent,
+  DeviceCard,
+  DeviceModel,
+  DeviceTable,
+  Summary,
+} from "../../component";
 import { QUERY_DEVICE_MODELS, QUERY_STATS } from "../../api/query";
 import { MUTATION_CREATE_DEVICE_CATEGORY } from "../../api/mutation";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 
@@ -23,8 +29,8 @@ export function Dashboard() {
   const [addDeviceModalOpened, setAddDeviceModalOpened] = useState(false);
   const {
     data: { queryManufacturerStats } = {},
-    loading,
-    error,
+    loading: manufacturerStatsLoading,
+    error: manufacturerStatsError,
   } = useQuery<{
     queryManufacturerStats: {
       total: number;
@@ -37,13 +43,16 @@ export function Dashboard() {
 
   const {
     data: { queryDeviceCategories } = {},
-    // loading,
-    // error,
+    loading: deviceCategoriesLoading,
+    error: deviceCategoriesError,
   } = useQuery<{
     queryDeviceCategories: Array<DeviceModel>;
   }>(QUERY_DEVICE_MODELS, {
     fetchPolicy: "network-only",
   });
+
+  const loading = manufacturerStatsLoading || deviceCategoriesLoading;
+  const error = manufacturerStatsError || deviceCategoriesError;
 
   // TODO: To process error and loading cases
   const [saveDeviceModel] = useMutation(MUTATION_CREATE_DEVICE_CATEGORY, {
@@ -85,14 +94,11 @@ export function Dashboard() {
   }
 
   if (error) {
-    navigate("/login");
-
-    return null;
+    return <Navigate to={"/login"} />;
   }
 
   return (
     <Container disableGutters>
-
       <Box
         sx={{
           minHeight: "4.5rem",
@@ -117,16 +123,20 @@ export function Dashboard() {
 
         <Box sx={{ display: "flex", gap: "1rem" }}>
           <IconButton sx={{ color: (theme) => theme.palette.primary.main }}>
-            <SettingsIcon
-            />
+            <SettingsIcon />
           </IconButton>
 
           <IconButton sx={{ color: (theme) => theme.palette.primary.main }}>
-            <NotificationsIcon
-            />
+            <NotificationsIcon />
           </IconButton>
 
-          <IconButton sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <IconButton
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <CardMedia
               loading="lazy"
               component="img"
@@ -182,7 +192,7 @@ export function Dashboard() {
         <Grid spacing={"1.5rem"} container>
           {queryDeviceCategories?.map(({ title, type }: DeviceModel) => (
             <Grid key={title} item xl={4} lg={4}>
-              <DeviceCard name={title} deviceType={type}/>
+              <DeviceCard name={title} deviceType={type} />
             </Grid>
           ))}
         </Grid>
@@ -191,9 +201,9 @@ export function Dashboard() {
           color="primary"
           variant="h5"
           fontWeight={300}
-          fontSize={'1rem'}
-          textAlign={'center'}
-          sx={{ padding: '5rem 2rem' }}
+          fontSize={"1rem"}
+          textAlign={"center"}
+          sx={{ padding: "5rem 2rem" }}
         >
           No Device Models yet, please add one.
         </Typography>
