@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
@@ -7,7 +9,7 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 import path from "path";
 
-export interface StaticSiteProps {
+interface StaticSiteProps {
   bucketName: string;
 }
 
@@ -15,7 +17,7 @@ export class StaticSite extends Stack {
   constructor(
     parent: Construct,
     name: string,
-    props: StaticSiteProps = { bucketName: "crm-recycle-bucket" }
+    props: StaticSiteProps = { bucketName: "crm-recycle-bucket-client" }
   ) {
     super(parent, name);
 
@@ -91,6 +93,6 @@ export class StaticSite extends Stack {
 }
 
 const app = new App();
-new StaticSite(app, "CrmRecyclingClient");
+new StaticSite(app, "CrmRecyclingClientStack");
 
 app.synth();

@@ -11,7 +11,7 @@ await persistCache({
 });
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:3001/graphql",
+  uri: import.meta.env.VITE_API_URL || "http://localhost:3001/graphql",
   credentials: "include",
   fetchOptions: {
     mode: "cors",
