@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
-import { MenuLink } from "../../component/menu-link/menu.link.tsx";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -86,6 +85,7 @@ export const RecycleDevicePage: FC = () => {
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "4rem",
+            minHeight: "4.5rem",
           }}
         >
           <CardMedia
@@ -100,33 +100,6 @@ export const RecycleDevicePage: FC = () => {
             }}
             image="/logo.png"
           />
-
-          <Box sx={{ display: "flex", gap: "1.5rem", padding: "1.5rem 0" }}>
-            <MenuLink url={"/"} title={"Home."} />
-            <MenuLink url={"/"} title={"About Us."} />
-            <MenuLink url={"/"} title={"How it works."} />
-            <MenuLink url={"/"} title={"Manufacturers."} />
-            <MenuLink url={"/"} title={"Recycling Centers."} />
-          </Box>
-
-          <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Button
-              onClick={() => navigate("/login")}
-              size={"large"}
-              color="primary"
-            >
-              Login
-            </Button>
-
-            <Button
-              onClick={() => navigate("/sign-up")}
-              size={"large"}
-              color="primary"
-              variant="contained"
-            >
-              Get Started
-            </Button>
-          </Box>
         </Box>
 
         <Typography
@@ -161,7 +134,8 @@ export const RecycleDevicePage: FC = () => {
         <Grid container spacing={"1rem"}>
           <Grid
             item
-            xs={4}
+            md={4}
+            xs={12}
             lg={4}
             sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
@@ -175,6 +149,7 @@ export const RecycleDevicePage: FC = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "1rem",
+                height: '100%'
               }}
             >
               <Box>
@@ -273,7 +248,7 @@ export const RecycleDevicePage: FC = () => {
             </Button>
           </Grid>
 
-          <Grid item xs={8} lg={8}>
+          <Grid item md={8} xs={12} lg={8}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <Box sx={{ display: "flex", gap: "1rem" }}>
                 <Card
