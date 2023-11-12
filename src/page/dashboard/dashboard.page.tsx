@@ -14,7 +14,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { AddDeviceModelDialogComponent, DeviceCard, DeviceModel, DeviceTable, Summary, } from "../../component";
 import { QUERY_DEVICE_MODELS, QUERY_STATS } from "../../api/query";
 import { MUTATION_CREATE_DEVICE_CATEGORY } from "../../api/mutation";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 
@@ -181,7 +181,7 @@ export function Dashboard() {
       {queryDeviceCategories?.length ? (
         <Grid spacing={"1.5rem"} container>
           {queryDeviceCategories?.map(({ title, type }: DeviceModel) => (
-            <Grid item xl={4} lg={4}>
+            <Grid key={title} item xl={4} lg={4}>
               <DeviceCard name={title} deviceType={type}/>
             </Grid>
           ))}
@@ -226,6 +226,40 @@ export function Dashboard() {
         </Typography>
         <DeviceTable />
       </Container>
+
+      <Box
+        sx={{
+          display: "flex",
+          gap: "1.5rem",
+          padding: "1.5rem 0",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography color={"primary"} fontSize={"1rem"} fontWeight={300}>
+          © 2023 Re* - All Rights Reserved.
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: "1.5rem",
+            padding: "1.5rem 0",
+            alignItems: "center",
+          }}
+        >
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <Typography color={"primary"} fontSize={"1rem"} fontWeight={300}>
+              Terms & Conditions
+            </Typography>
+          </Link>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <Typography color={"primary"} fontSize={"1rem"} fontWeight={300}>
+              Privacy Policy
+            </Typography>
+          </Link>
+        </Box>
+      </Box>
     </Container>
   );
 }
