@@ -10,7 +10,7 @@ type DeviceCardProps = {
   deviceType: string;
 };
 
-export function DeviceCard({ name }: DeviceCardProps) {
+export function DeviceCard({ name, deviceType }: DeviceCardProps) {
   return (
     <Card
       elevation={0}
@@ -54,7 +54,7 @@ export function DeviceCard({ name }: DeviceCardProps) {
             Type
           </Typography>
           <Typography marginTop={'5px'} lineHeight={1} color="primary" variant="body1" fontSize="16px" fontWeight={400}>
-            Phone
+            {deviceType.charAt(0).toUpperCase() + deviceType.slice(1).toLowerCase()}
           </Typography>
         </Container>
       </CardContent>

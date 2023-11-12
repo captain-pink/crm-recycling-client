@@ -8,17 +8,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
+import SettingsIcon from "@mui/icons-material/Settings";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import {
-  DeviceCard,
-  Summary,
-  DeviceTable,
-  AddDeviceModelDialogComponent,
-  DeviceModel,
-} from "../../component";
+import { AddDeviceModelDialogComponent, DeviceCard, DeviceModel, DeviceTable, Summary, } from "../../component";
 import { QUERY_DEVICE_MODELS, QUERY_STATS } from "../../api/query";
 import { MUTATION_CREATE_DEVICE_CATEGORY } from "../../api/mutation";
 import { useNavigate } from "react-router-dom";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -93,7 +91,57 @@ export function Dashboard() {
   }
 
   return (
-    <Container disableGutters sx={{ padding: "64px 144px" }}>
+    <Container disableGutters>
+
+      <Box
+        sx={{
+          minHeight: "4.5rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "4rem",
+        }}
+      >
+        <CardMedia
+          loading="lazy"
+          component="img"
+          onClick={() => navigate("/")}
+          sx={{
+            width: "100px",
+            objectFit: "contain",
+            objectPosition: "center",
+            cursor: "pointer",
+          }}
+          image="/logo.png"
+        />
+
+        <Box sx={{ display: "flex", gap: "1rem" }}>
+          <IconButton sx={{ color: (theme) => theme.palette.primary.main }}>
+            <SettingsIcon
+            />
+          </IconButton>
+
+          <IconButton sx={{ color: (theme) => theme.palette.primary.main }}>
+            <NotificationsIcon
+            />
+          </IconButton>
+
+          <IconButton sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CardMedia
+              loading="lazy"
+              component="img"
+              image={"/avatar.png"}
+              sx={{
+                width: "20px",
+                objectFit: "contain",
+                objectPosition: "center",
+                cursor: "pointer",
+              }}
+            />
+          </IconButton>
+        </Box>
+      </Box>
+
       <Typography
         color="primary"
         variant="h4"
